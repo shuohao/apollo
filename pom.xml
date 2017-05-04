@@ -5,7 +5,7 @@
 
 	<groupId>com.ctrip.framework.apollo</groupId>
 	<artifactId>apollo</artifactId>
-	<version>0.6.4-SNAPSHOT</version>
+	<version>0.7.0</version>
 	<name>Apollo</name>
 	<packaging>pom</packaging>
 	<description>Ctrip Configuration Center</description>
@@ -142,11 +142,6 @@
 			</dependency>
 			<!-- ctrip internal dependencies, only used when ctrip profiles are enabled -->
 			<dependency>
-				<groupId>com.ctrip.framework</groupId>
-				<artifactId>framework-foundation</artifactId>
-				<version>1.5.2</version>
-			</dependency>
-			<dependency>
 				<groupId>com.dianping.cat</groupId>
 				<artifactId>cat-client</artifactId>
 				<version>2.2.3</version>
@@ -268,9 +263,9 @@
 				<version>5.1.39</version>
 			</dependency>
 			<dependency>
-				<groupId>org.unidal.framework</groupId>
-				<artifactId>foundation-service</artifactId>
-				<version>2.5.6</version>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>4.1.0</version>
 			</dependency>
 			<!--for test -->
 			<dependency>
@@ -588,34 +583,22 @@
 					</plugin>
 				</plugins>
 			</build>
-			<repositories>
-				<repository>
-					<id>internal.repo</id>
-					<url>https://raw.github.com/ctripcorp/apollo/mvn-repo/</url>
-				</repository>
-			</repositories>
 		</profile>
 		<profile>
 			<!-- for open source usage -->
-			<id>dev</id>
+			<id>github</id>
 			<properties>
-				<package.environment>dev</package.environment>
+				<package.environment>github</package.environment>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<repositories>
-				<repository>
-					<id>internal.repo</id>
-					<url>https://raw.github.com/ctripcorp/apollo/mvn-repo/</url>
-				</repository>
-			</repositories>
 		</profile>
 		<profile>
       <!-- for ctrip development -->
 			<id>ctrip-dev</id>
 			<properties>
-				<package.environment>dev</package.environment>
+				<package.environment>ctrip</package.environment>
 			</properties>
 			<dependencyManagement>
 				<dependencies>
@@ -686,6 +669,11 @@
 								<groupId>commons-beanutils</groupId>
 								<artifactId>commons-beanutils-core</artifactId>
 							</exclusion>
+							<!-- duplicated with spring-aop -->
+							<exclusion>
+								<groupId>aopalliance</groupId>
+								<artifactId>aopalliance</artifactId>
+							</exclusion>
 						</exclusions>
 					</dependency>
 					<!-- end of eureka -->
@@ -715,6 +703,9 @@
 		<profile>
 			<!-- for ctrip production -->
 			<id>ctrip</id>
+			<properties>
+				<package.environment>ctrip</package.environment>
+			</properties>
 			<dependencyManagement>
 				<dependencies>
 					<dependency>
@@ -783,6 +774,11 @@
 							<exclusion>
 								<groupId>commons-beanutils</groupId>
 								<artifactId>commons-beanutils-core</artifactId>
+							</exclusion>
+							<!-- duplicated with spring-aop -->
+							<exclusion>
+								<groupId>aopalliance</groupId>
+								<artifactId>aopalliance</artifactId>
 							</exclusion>
 						</exclusions>
 					</dependency>
